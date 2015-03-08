@@ -1,0 +1,10 @@
+hpc <- read.csv("household_power_consumption.csv", sep = ";", na.strings = "?")
+hpc <- hpc[hpc$Date == "1/2/2007" | hpc$Date == "2/2/2007",]
+timedate <- strptime(paste(as.character(hpc$Date), as.character(hpc$Time)), format = "%d/%m/%Y %H:%M")
+png(file = "plot3.png")
+plot(timedate, hpc$Sub_metering_1, type = "n", ylab = "Energy sub metering", xlab = "")
+lines(timedate, hpc$Sub_metering_1, col = "black")
+lines(timedate, hpc$Sub_metering_2, col = "red")
+lines(timedate, hpc$Sub_metering_3, col = "blue")
+legend("topright", lty = c(1,1,1), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col = c("black", "red", "blue"))
+dev.off()
